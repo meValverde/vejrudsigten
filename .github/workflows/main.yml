@@ -1,1 +1,19 @@
+name: default
 
+on:
+  push:
+    branches:
+    - '*'
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: CocoaPod Install
+      run: pod install
+    - name: Force xcode version
+      run: sudo xcode-select -switch /Applications/Xcode_11.2.1.app
+    - name: Build
+      run: ./pipelines.sh build
